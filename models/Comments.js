@@ -12,7 +12,7 @@ Comments.init(
             primaryKey: true,
             autoIncrement: true
         },
-        comment_text: {
+        comments_text: {
             type: DataTypes.STRING,
             allowNull: false
         },
@@ -37,4 +37,6 @@ Comments.init(
     underscored: true,
     modelName: 'Comments'
     }
-)
+);
+
+module.exports = Comments;

@@ -1,4 +1,4 @@
-const { Model, DataTypes } = require('sequelize');
+const { Model, DataTypes, Sequelize } = require('sequelize');
 
 const sequelize = require('../config/connection.js');
 
@@ -21,6 +21,13 @@ Posts.init(
 			type: DataTypes.TEXT,
 			allowNull: false,
 		},
+		
+		created_at: {
+				type: 'TIMESTAMP',
+				defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+				allowNull: false
+			
+		}
 	},
 	{
 		sequelize,
@@ -30,3 +37,5 @@ Posts.init(
 		modelName: 'Posts',
 	}
 );
+
+module.exports = Posts;

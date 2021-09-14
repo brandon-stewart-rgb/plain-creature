@@ -1,8 +1,7 @@
 const router = require('express').Router();
 const sequelize = require('../config/connection');
 // add this back once you have more models
-// const { Posts, User, Comment } = require('../models');
-const { Posts } = require('../models');
+const { Posts, User, Comment } = require('../models');
 
 router.get('/', (req, res) => {
     res.render('homepage', {
