@@ -13,6 +13,13 @@ router.get('/', (req, res)=> {
 });
 
 router.get('/:id', (req, res) => {
+  if(!req.session.views){
+    req.session.views =1;
+    console.log("This is your first visit");
+  } else {
+    req.session.views++
+    console.log(`You have visited ${req.session.views} times`);
+  }
     Users.findOne({
         attributes: { exclude: ['password'] },
         where: {
@@ -34,14 +41,12 @@ router.get('/:id', (req, res) => {
          
         ]
     })
-    .then(dbUsersData => {
-        req.session.save(()=> {
-          req.session.users_id = dbUsersData.id;
-          req.session.username = dbUsersData.username;
-          req.session.loggedIn = true;
-          res.json(dbUsersData);
-        });
-        
+    .then(dbUserData => {
+      if (!dbUserData) {
+        res.status(404).json({ message: 'No user found with this id' });
+        return;
+      }
+      res.json(dbUserData);
     })
     .catch(err => {
         console.log(err);
@@ -57,7 +62,13 @@ router.post('/', (req, res) => {
         password: req.body.password
       })
       .then(dbUserData => {
-        res.json(dbUserData);
+        req.session.save(() => {
+          req.session.users_id = dbUserData.id;
+          req.session.username = dbUserData.username;
+          req.session.loggedIn = true;
+    
+          res.json(dbUserData);
+        });
       })
       .catch(err => {
         console.log(err);
@@ -65,15 +76,14 @@ router.post('/', (req, res) => {
       });
   });
 
-router.post('/login', (req, res) => {
-    
+  router.post('/login', (req, res) => {
     User.findOne({
       where: {
         email: req.body.email
       }
     }).then(dbUserData => {
       if (!dbUserData) {
-        res.status(400).json({ message: 'No such user with that email address, please try again' });
+        res.status(400).json({ message: 'No user with that email address!' });
         return;
       }
   
@@ -84,9 +94,26 @@ router.post('/login', (req, res) => {
         return;
       }
   
-        res.json({ user: dbUserData, message: 'You are now officially logged in' });
+      req.session.save(() => {
+        // declare session variables
+        req.session.users_id = dbUserData.id;
+        req.session.username = dbUserData.username;
+        req.session.loggedIn = true;
+  
+        res.json({ user: dbUserData, message: 'You are now logged in!' });
       });
- });
+    });
+  });
+
+  router.post('/logout', (req,res) => {
+    if(req.session.loggedIn){
+      req.session.destroy(() => {
+        res.status(204).end();
+      });
+    } else {
+      res.status(404).end();
+    }
+  });
 
  router.put('/:id', (req, res)=> {
    Users.update(req.body, {
@@ -96,7 +123,7 @@ router.post('/login', (req, res) => {
      }
    }).then(dbUserData => {
      if(!dbUserData) {
-       res.status(404).json({ message: 'No user found with this id' });
+       res.status(404).json({ message: 'No user found with this exact id' });
        return;
      }
      res.json(dbUserData);
@@ -106,18 +133,6 @@ router.post('/login', (req, res) => {
    });
  });
  
-
-// router.post('/logout', (req, res) => {
-//     if (req.session.loggedIn) {
-//       req.session.destroy(() => {
-//         res.status(204).end();
-//       });
-//     }
-//     else {
-//       res.status(404).end();
-//     }
-//   });
-
 
 router.delete('/:id', (req, res) => {
     User.destroy({
@@ -137,5 +152,7 @@ router.delete('/:id', (req, res) => {
         res.status(500).json(err);
       });
   });
+
+ 
 
 module.exports = router;
