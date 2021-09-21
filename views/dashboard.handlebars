@@ -1,0 +1,25 @@
+<div class="columns is-mobile is-centered">
+<div class="column is-5-tablet is-4-desktop is-half-widescreen is-centered ">
+  <h1 class="title has-text-success mt-5">Welcome to the Dashboard: <span class="is-italic has-text-weight-bold has-text-black"> {{session.username}} </span> </h1>
+  <p class="subtitle has-text-success">Lets make a new post</p>
+  <form id="post-box" class="box ">
+    <div class="field">
+      <label for="" class="label">Title</label>
+      <input class="input" type="text" placeholder="e.g. Some Amazing Code Title">
+      <label for="" class="label">Post</label>
+      <textarea class="textarea" placeholder="e.g. Hello world,..."></textarea>
+
+    </div>
+
+    <div class="field">
+      <button class="button is-success" type="submit">
+        Save Post
+      </button>
+    </div>
+  </form>
+
+<p>Currently you have  {{#each posts}} {{posts}}  {{/each }} posts</p>
+
+</div>
+</div>
+<script src="/javascript/post.js"></script>

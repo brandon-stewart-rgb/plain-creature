@@ -31,4 +31,4 @@ Posts.hasMany(Comments, {
 })
 
 
-module.exports = { Posts, Users, Comments};
+module.exports = { Posts, Users, Comments };

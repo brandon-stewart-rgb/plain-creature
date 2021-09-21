@@ -1,0 +1,75 @@
+<section class="blog-posts">
+    <div class="container">
+        <div class="columns is-centered  ">
+
+
+
+            <div class="column post is-4">
+                <article class="columns is-multiline">
+                    <div class="column is-12 post-img">
+                        <img src="https://cdn.emk.dev/templates/post-img.png" alt="Featured Image">
+                    </div>
+                    <div class="column is-12 featured-content ">
+
+                        <h1 class="title post-title">{{post.title}}</h1>
+                        <p class="post-excerpt">{{post.post_text}}</p>
+                        <br>
+                        <div class="meta">
+                            By <a href="/api/users/{{id}}"> {{post.User.username}}</a> on
+                            {{post.created_at}}
+                            |
+                            <a href="/api/comments/{{id}}">{{comments.length}} comment(s)</a>
+                        </div>
+
+
+
+                         <div class="comments" style='border: solid 1px red'>
+                            {{#each post.comments}}
+                            <section class="comment" >
+                                <div class="meta">
+                                    {{post.User.username}} on {{created_at}}
+                                </div>
+                                <div class="is-size-7 has-text-light ">
+                                    {{post.comments_text}}
+                                </div>
+                            </section>
+                            {{/each}}
+                        </div>
+
+                        
+
+
+                        {{!-- comments form --}}
+                        <h1 class="title mt-2">Add a Comment</h1>
+                        <div class="field">
+                            <label class="label has-text-light">Message</label>
+                            <div class="control">
+                                <textarea class="textarea" placeholder="Textarea"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="field is-grouped">
+                            <div class="control">
+                                <button class="button is-success">Submit</button>
+                            </div>
+                            <div class="control">
+                                <button class="button is-link is-light">Cancel</button>
+                            </div>
+                        </div>
+
+
+
+
+                       
+
+
+
+                    </div>
+                </article>
+            </div>
+
+
+        </div>
+    </div>
+
+</section>

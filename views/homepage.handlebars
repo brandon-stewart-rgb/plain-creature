@@ -1,23 +1,42 @@
-{{#each posts}}
-<div class="column post is-4">
-    
-    <article class="columns is-multiline">
-        <div class="column is-12 post-img">
-            <img src="https://cdn.emk.dev/templates/post-img.png" alt="Featured Image">
-        </div>
-        <div class="column is-12 featured-content ">
-          
-            <h1 class="title post-title">{{title}}</h1>
-            <p class="post-excerpt">({{post_text}}).</p>
-            <br>
-            <div class="meta">
-                by {{username}} on
-                {{created_at}}
-                |
-                <a href="/api/comments/{{id}}">{{comments.length}} comment(s)</a>
+<section class="blog-posts" >
+    <div class="container">
+        <div class="columns">
+            <div class="column is-10 is-offset-1">
+
+                {{> feature-post}}
+
+                <hr>
+                <div class="columns is-multiline">
+
+
+                    {{#each posts}}
+                    <div class="column post is-4">
+
+                        <article class="columns is-multiline">
+                            <div class="column is-12 post-img">
+                                <img src="https://cdn.emk.dev/templates/post-img.png" alt="Featured Image">
+                            </div>
+                            <div class="column is-12 featured-content ">
+
+                                <h1 class="title post-title">{{title}}</h1>
+                                <p class="post-excerpt">{{post_text}}</p>
+                                <br>
+                                <div class="meta">
+                                    By <a href="/api/users/{{id}}" >{{User.username}} </a>
+                                     on
+                                    {{created_at}}
+                                    |
+                                    <a href="/api/comments/{{id}}">{{comments.length}} comment(s)</a>
+                                </div>
+                                <a href="/post/{{id}}" class="button is-primary">Read More</a>
+                            </div>
+                        </article>
+                    </div>
+                    {{/each}}
+
+
+                </div>
             </div>
-            <a href="/api/posts/{{id}}" class="button is-primary">Read More</a>
         </div>
-    </article>
-</div>
-  {{/each}}
+
+</section>

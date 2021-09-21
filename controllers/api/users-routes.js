@@ -15,7 +15,7 @@ router.get('/', (req, res)=> {
 router.get('/:id', (req, res) => {
   if(!req.session.views){
     req.session.views =1;
-    console.log("This is your first visit");
+    console.log("This is your first visit to this site");
   } else {
     req.session.views++
     console.log(`You have visited ${req.session.views} times`);
@@ -68,6 +68,7 @@ router.post('/', (req, res) => {
           req.session.loggedIn = true;
     
           res.json(dbUserData);
+          console.log(dbUserData)
         });
       })
       .catch(err => {
@@ -77,7 +78,7 @@ router.post('/', (req, res) => {
   });
 
   router.post('/login', (req, res) => {
-    User.findOne({
+    Users.findOne({
       where: {
         email: req.body.email
       }
