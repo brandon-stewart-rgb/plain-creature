@@ -13,12 +13,12 @@ Posts.init(
 			autoIncrement: true,
 		},
 		title: {
-			type: DataTypes.STRING,
+			type: DataTypes.STRING(100),
 			allowNull: false,
 		},
 
 		post_text: {
-			type: DataTypes.TEXT,
+			type: DataTypes.STRING(500),
 			allowNull: false,
 		},
 		

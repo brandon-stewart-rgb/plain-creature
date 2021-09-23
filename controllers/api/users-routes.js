@@ -77,7 +77,7 @@ router.post('/', (req, res) => {
       });
   });
 
-  router.post('/login', (req, res) => {
+router.post('/login', (req, res) => {
     Users.findOne({
       where: {
         email: req.body.email
@@ -102,8 +102,12 @@ router.post('/', (req, res) => {
         req.session.loggedIn = true;
   
         res.json({ user: dbUserData, message: 'You are now logged in!' });
+       
+
       });
+      
     });
+   
   });
 
   router.post('/logout', (req,res) => {

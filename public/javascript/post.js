@@ -2,28 +2,30 @@
 async function postEntry(event) {
 	event.preventDefault();
 
-	const title = document.querySelector('#title').value.trim();
-	const post_text = document.querySelector('#text').value.trim();
-	
+	const title = document.querySelector('#title').value;
+	const post_text = document.querySelector('#post_text').value;
 
-	if (title && post_text) {
-		const response = await fetch('/api/posts', {
-			method: 'post',
-			body: JSON.stringify({
-				title,
-				post_text,
-				
-			}),
-			headers: { 'Content-Type': 'application/json' },
-		});
-
-		if (response.ok) {
-			document.location.replace('/');
-		} else {
-			
-			alert(response.statusText);
-		}
+	const response = await fetch('/api/posts', {
+		method: 'POST',
+		body: JSON.stringify({
+			title,
+			post_text,
+		}),
+		headers: {
+			'Content-type': 'application/json',
+		},
+	});
+	if (response.ok) {
+		document.location.replace('/dashboard');
+	} else {
+		alert(response.statusText);
 	}
 }
 
-document.getElementById('post-box').addEventListener('submit', postEntry);
+
+
+// fixes NULL by executing after the DOM fully loads
+var el = document.getElementById('save');
+if (el) {
+	el.addEventListener('click', postEntry, false);
+}

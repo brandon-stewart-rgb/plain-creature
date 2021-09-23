@@ -26,8 +26,7 @@ const sess = {
      next();
      
  });
-
-
+ 
 
 const hbs = exphbs.create({});
 
@@ -40,6 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(require('./controllers/'));
 app.disable('etag');
+
 
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => console.log('Now listening'));

@@ -1,59 +1,60 @@
-<section class="hero is-small"> 
-    <div class="hero-head">
-      <div class="container">
-        <nav class="navbar" role="navigation" aria-label="main navigation">
+<section class="hero is-small">
+  <div class="hero-head">
+    <div class="container">
+      <nav class="navbar" role="navigation" aria-label="main navigation">
 
-          <div id="navbarBasicExample" class="navbar-menu">
-            <div class="navbar-start">
-              <a class="navbar-item is-active" href="/">
-                Home
-              </a> 
-              {{#unless session.loggedIn}}
-              <a class="navbar-item" href="/login">
-                Login
-              </a>
-              {{/unless}}
+        <div id="navbarBasicExample" class="navbar-menu">
+          <div class="navbar-start">
+            <a class="navbar-item is-active" href="/">
+              Home
+            </a>
+            {{#unless session.loggedIn}}
+            <a class="navbar-item" href="/login">
+              Login
+            </a>
+            {{/unless}}
 
-              {{#if session.loggedIn}}
-              <a class="navbar-item" id="logout" href="#">
-                Logout
-              </a>
-               {{/if}}
+            {{#if session.loggedIn}}
+            <a class="navbar-item" id="logout" href="/">
+              Logout
+            </a>
+            {{/if}}
+            {{#unless session.loggedIn}}
+            <a class="navbar-item"  href="/signup">
+              Signup
+            </a>
+            {{/unless}}
 
-              <a class="navbar-item" id="logout" href="/signup">
-                Signup
-              </a>
-              
-              {{#if session.loggedIn}}
-               <a class="navbar-item"  href="/dashboard">
-                Dashboard
-              </a>
-              {{/if}}
-            </div> 
+            {{#if session.loggedIn}}
+            <a class="navbar-item" href="/dashboard">
+              Dashboard
+            </a>
+            {{/if}}
+          </div>
 
-            <div class="navbar-end">
-              <div class="navbar-item">
-                <a href="#">
-                  <i class="fab fa-facebook"></i>
-                </a>
-                <a href="#">
-                  <i class="fab fa-twitter"></i>
-                </a>
-                <a href="#">
-                  <i class="fas fa-rss-square"></i>
-                </a>
-              </div>
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <a href="#">
+                <i class="fab fa-facebook"></i>
+              </a>
+              <a href="#">
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a href="#">
+                <i class="fas fa-rss-square"></i>
+              </a>
             </div>
           </div>
-        </nav>
-      </div>
+        </div>
+      </nav>
     </div>
-    <div class="hero-body">
-      <div class="container has-text-centered">
-        {{!-- <img src="https://cdn.emk.dev/templates/bulma-logo-light.png" width="150" height="40"> --}}
-        <h2 class="subtitle">
-          Tech Blog
-        </h2>
-      </div>
+  </div>
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      {{!-- <img src="https://cdn.emk.dev/templates/bulma-logo-light.png" width="150" height="40"> --}}
+      <h2 class="subtitle">
+        Tech Blog
+      </h2>
     </div>
-  </section>
+  </div>
+</section>

@@ -35,10 +35,10 @@ router.get('/', (req, res) => {
 
 router.get('/login', (req, res) => {
 	if (req.session.loggedIn) {
-	  res.redirect('/');
+	  res.redirect('/dashboard');
 	  return;
 	}
-  // render login page and make title dynamic
+  // render login page and make page title dynamic
 	res.render('login', { pageTitle: 'Login' });
   });
 
@@ -105,13 +105,12 @@ router.get('/post/:id', (req, res) => {
 
 
 
-  //signup
-  router.get('/signup', (req, res) => {
+//signup
+router.get('/signup', (req, res) => {
 	
   // render login page and make title dynamic
 	res.render('signup', { pageTitle: 'Signup' });
 });
-
 
 
 module.exports = router;

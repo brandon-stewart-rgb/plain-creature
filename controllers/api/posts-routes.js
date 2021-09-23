@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const sequelize = require('../../config/connection');
 const { Posts, Users, Comments } = require('../../models');
-
+const chalk = require('chalk');
 router.get('/', (req, res)=> {
     Posts.findAll({
         attributes: [ 'id', 'title', 'post_text', 'created_at'],
@@ -47,26 +47,29 @@ router.get('/:id', (req, res)=> {
             }
         ]
     }).then(dbPostData => {
-        if (!dbPostData) {
-            res.status(404).json({ message: 'No post found with this specific id' });
-            return;
-        }
-        res.json(dbPostData);
-    }).catch(err => {
+        // serialize data before passing to template
+        const posts = dbPostData.map(post => post.get({ plain: true }));
+        res.render('dashboard', { posts, loggedIn: true });
+      })
+   .catch(err => {
         console.log(err);
         res.status(500).json(err);
     });
 });
 
+// create post
 router.post('/', (req, res) => {
     Posts.create({
         title: req.body.title,
+        post_text: req.body.post_text,
         users_id: req.session.users_id
     }).then(dbPostData => res.json(dbPostData))
+  
     .catch(err => {
         console.log(err);
         res.status(500).json(err);
     });
+    // console.log(chalk.blue(dbPostData))
 });
 
 router.put('/:id', (req, res)=> {

@@ -5,20 +5,23 @@
   <form id="post-box" class="box ">
     <div class="field">
       <label for="" class="label">Title</label>
-      <input class="input" type="text" placeholder="e.g. Some Amazing Code Title">
-      <label for="" class="label">Post</label>
-      <textarea class="textarea" placeholder="e.g. Hello world,..."></textarea>
+      <input class="input" type="text" id="title" placeholder="e.g. Some Amazing Code Title">
+      <label for="" class="label"  >Post</label>
+      <textarea class="textarea" id="post_text" placeholder="e.g. Hello world,..."></textarea>
 
     </div>
 
     <div class="field">
-      <button class="button is-success" type="submit">
+      <button class="button is-success" id="save" type="submit">
         Save Post
       </button>
     </div>
   </form>
 
-<p>Currently you have  {{#each posts}} {{posts}}  {{/each }} posts</p>
+
+
+
+
 
 </div>
 </div>
