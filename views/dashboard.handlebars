@@ -1,28 +1,45 @@
 <div class="columns is-mobile is-centered">
-<div class="column is-5-tablet is-4-desktop is-half-widescreen is-centered ">
-  <h1 class="title has-text-success mt-5">Welcome to the Dashboard: <span class="is-italic has-text-weight-bold has-text-black"> {{session.username}} </span> </h1>
-  <p class="subtitle has-text-success">Lets make a new post</p>
-  <form id="post-box" class="box ">
-    <div class="field">
-      <label for="" class="label">Title</label>
-      <input class="input" type="text" id="title" placeholder="e.g. Some Amazing Code Title">
-      <label for="" class="label"  >Post</label>
-      <textarea class="textarea" id="post_text" placeholder="e.g. Hello world,..."></textarea>
+  <div class="column is-5-tablet is-4-desktop is-half-widescreen is-centered ">
+    <h1 class="title has-text-success mt-5">Welcome to the Dashboard: <span
+        class="is-italic has-text-weight-bold has-text-black"> {{session.username}} </span> </h1>
+    <p class="subtitle has-text-success">Lets make a new post</p>
+    <form id="post-box" class="box ">
+      <div class="field">
+        <label for="" class="label">Title</label>
+        <input class="input" type="text" id="title" name="title" placeholder="e.g. Some Amazing Code Title">
+        <label for="" class="label">Post</label>
+        <textarea class="textarea" id="post_text" name="post_text" placeholder="e.g. Hello world,..."></textarea>
 
-    </div>
+      </div>
 
-    <div class="field">
-      <button class="button is-success" id="save" type="submit">
-        Save Post
-      </button>
-    </div>
-  </form>
-
-
-
+      <div class="field">
+        <button class="button is-success" id="save" type="submit">
+          Save Post
+        </button>
+      </div>
+    </form>
 
 
+    {{#if posts}}
+    <section>
+      <h2 class="title has-text-black is-size-4 ">Your Latest Posts</h2>
+      <ul>
+        {{#each posts}}
+        <li class="is-size-6   mb-1  ">
+          <a class=" is-block button is-success " href="/api/posts/{{id}}" class="edit-link">{{title}}</a>
+        </li>
+        {{/each}}
+      </ul>
+    </section>
+    {{/if}}
 
-</div>
+
+
+ 
+
+
+
+
+  </div>
 </div>
 <script src="/javascript/post.js"></script>

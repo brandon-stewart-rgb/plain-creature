@@ -2,6 +2,7 @@ const router = require('express').Router();
 const sequelize = require('../../config/connection');
 const { Posts, Users, Comments } = require('../../models');
 const chalk = require('chalk');
+
 router.get('/', (req, res)=> {
     Posts.findAll({
         attributes: [ 'id', 'title', 'post_text', 'created_at'],
@@ -31,11 +32,11 @@ router.get('/:id', (req, res)=> {
         where: {
             id: req.params.id
         },
-        attributes: ['id', 'title', 'created_at'],
+        attributes: [ 'id', 'title', 'post_text', 'created_at'],
         include: [
             {
                 model: Comments,
-                attributes: [ 'id', 'comments_text', 'posts_id', 'users_id', 'created_at'],
+                attributes: [ 'id', 'comments_text', 'posts_id', 'users_id' ],
                 include: {
                     model: Users,
                     attributes: ['username']
@@ -47,9 +48,15 @@ router.get('/:id', (req, res)=> {
             }
         ]
     }).then(dbPostData => {
+
+        if (!dbPostData) {
+            res.status(404).json({ message: 'No post found with this specific id' });
+            return;
+        }
+        res.json(dbPostData);
         // serialize data before passing to template
-        const posts = dbPostData.map(post => post.get({ plain: true }));
-        res.render('dashboard', { posts, loggedIn: true });
+        // const posts = dbPostData.map(post => post.get({ plain: true }));
+        // res.render('dashboard', { posts, loggedIn: true });
       })
    .catch(err => {
         console.log(err);
@@ -63,13 +70,15 @@ router.post('/', (req, res) => {
         title: req.body.title,
         post_text: req.body.post_text,
         users_id: req.session.users_id
-    }).then(dbPostData => res.json(dbPostData))
+    })
+    .then(dbPostData => res.json(dbPostData))
+     // console.log(chalk.blue(req.session.users_id))
   
     .catch(err => {
         console.log(err);
         res.status(500).json(err);
     });
-    // console.log(chalk.blue(dbPostData))
+   
 });
 
 router.put('/:id', (req, res)=> {

@@ -1,29 +1,49 @@
 const router = require('express').Router();
 const sequelize = require('../config/connection');
 const { Posts, Users, Comments } = require('../models');
+const withAuth = require('../utils/auth');
 
 // router.get('/', (req, res) => {
 //     res.render('dashboard', { loggedIn: true });
 // });
 
 // dashboard
-router.get('/',  (req, res) => {
-	if(req.session.loggedIn) {
-		Posts.findAll({
-			attributes: ['title'],
-			where: {
-				users_id: req.body.users_id
-			}
-		});
-	 
-	  res.render('dashboard', { pageTitle: 'Dashboard'});
-	  return;
-
-	} else {
-		res.redirect('/');
-		return;
-	  }
+router.get('/', (req, res) => {
 	
+		Posts.findAll({
+			
+			where: {
+				users_id: req.session.users_id
+			},
+			attributes: ['id', 'title', 'post_text', 'created_at'],
+			include: [
+				{
+				  model: Comments,
+				  attributes: ['id', 'comments_text',  'users_id', 'created_at'],
+				  include: {
+					model: Users,
+					attributes: ['username']
+				  }
+				},
+				{
+				  model: Users,
+				  attributes: ['username']
+				}
+			  ],
+			  order: [
+				['created_at', 'DESC']
+	
+			],
+
+		})
+		.then(dbPostData => {
+			const posts = dbPostData.map(post => post.get({ plain: true }));
+			res.render('dashboard', { posts, loggedIn: true});
+		})
+		.catch(err => {
+			console.log(err);
+			res.status(500).json(err);
+		});	 		
 });
 
 module.exports = router;

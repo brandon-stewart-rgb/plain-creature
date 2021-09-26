@@ -44,25 +44,25 @@ router.get('/login', (req, res) => {
 
 
 
-// dashboard
-router.get('/dashboard',  (req, res) => {
-	if(req.session.loggedIn) {
-		Posts.findAll({
-			attributes: ['title'],
-			where: {
-				users_id: req.body.users_id
-			}
-		});
+// // dashboard
+// router.get('/dashboard',  (req, res) => {
+// 	if(req.session.loggedIn) {
+// 		Posts.findAll({
+// 			attributes: ['title'],
+// 			where: {
+// 				users_id: req.body.users_id
+// 			}
+// 		});
 	 
-	  res.render('dashboard', { pageTitle: 'Dashboard'});
-	  return;
+// 	  res.render('dashboard', { pageTitle: 'Dashboard'});
+// 	  return;
 
-	} else {
-		res.redirect('/');
-		return;
-	  }
+// 	} else {
+// 		res.redirect('/');
+// 		return;
+// 	  }
 	
-});
+// });
 
 // single post
 router.get('/post/:id', (req, res) => {

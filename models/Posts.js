@@ -18,7 +18,7 @@ Posts.init(
 		},
 
 		post_text: {
-			type: DataTypes.STRING(500),
+			type: DataTypes.STRING(1000),
 			allowNull: false,
 		},
 		
@@ -26,8 +26,15 @@ Posts.init(
 				type: 'TIMESTAMP',
 				defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
 				allowNull: false
-			
-		}
+	
+		},
+		users_id: {
+			type: DataTypes.INTEGER,
+			references: {
+			  model: 'Users',
+			  key: 'id'
+			}
+		  }
 	},
 	{
 		sequelize,

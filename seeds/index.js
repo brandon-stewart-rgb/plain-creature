@@ -4,6 +4,7 @@ const seedComments = require('./comments-seeds');
 
 const sequelize = require('../config/connection');
 
+
 const oneSeedToRuleThemAll = async () => {
     await sequelize.sync({ force: true });
     console.log('--------------');
