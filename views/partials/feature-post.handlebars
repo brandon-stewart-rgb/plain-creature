@@ -1,18 +1,20 @@
+<article class="columns featured">
+    <div class="column is-7 post-img ">
+        <img src="https://cdn.emk.dev/templates/featured-image.png" alt="">
+    </div>
+    <div class="column is-5 featured-content va">
+        <div>
+            <h3 class="heading post-category">LATEST POST</h3>
+            {{!-- shows latest post --}}
+            {{#each posts}}
+            {{#if @first}}
+            <h1 class="title post-title">{{title}}</h1>
+            <p class="post-excerpt">{{post_text}}</p>
+            <br>
+            <a href="/api/posts/{{id}}" class="button is-primary">Read More</a>
+            {{/if}}
+            {{/each}}
+        </div>
 
-        <article class="columns featured">
-            <div class="column is-7 post-img ">
-                <img src="https://cdn.emk.dev/templates/featured-image.png" alt="">
-            </div>
-            <div class="column is-5 featured-content va">
-                <div>
-                    <h3 class="heading post-category">Category Name</h3>
-                    <h1 class="title post-title">Feature Post</h1>
-                    <p class="post-excerpt">Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis, beatae!
-                        Voluptatem natus quos distinctio quasi soluta. Modi ducimus amet a deserunt, temporibus voluptas
-                        nobis, perferendis deleniti ab, sequi ipsam id?</p>
-                    <br>
-                    <a href="#" class="button is-primary">Read More</a>
-                </div>
-
-            </div>
-        </article>
+    </div>
+</article>

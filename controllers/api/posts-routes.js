@@ -19,6 +19,10 @@ router.get('/', (req, res)=> {
                 model: Users,
                 attributes: ['username']
             }
+        ],
+        order: [
+            ['created_at', 'DESC']
+
         ]
     })
     .then(dbPostData => res.json(dbPostData))

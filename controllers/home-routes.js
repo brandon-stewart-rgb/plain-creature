@@ -22,10 +22,15 @@ router.get('/', (req, res) => {
 				attributes: ['username'],
 			},
 		],
+		
+        order: [
+            ['created_at', 'DESC']
+
+        ]
 	})
 		.then((dbPostsData) => {
 			const posts = dbPostsData.map((post) => post.get({ plain: true }));
-			res.render('homepage', { posts, pageTitle : 'Home'});
+			res.render('homepage', { posts,loggedIn: req.session.loggedIn, pageTitle : 'Home'});
 		})
 		.catch((err) => {
 			console.log(err);
@@ -65,7 +70,9 @@ router.get('/login', (req, res) => {
 // });
 
 // single post
-router.get('/post/:id', (req, res) => {
+router.get('/api/posts/:id', (req, res) => {
+	
+
 	Posts.findOne({
         where: {
             id: req.params.id
@@ -76,7 +83,7 @@ router.get('/post/:id', (req, res) => {
                 model: Comments,
                 attributes: [ 'id', 'comments_text', 'posts_id', 'users_id', 'created_at'],
                 include: {
-                    model: Users,
+                    model: Users, 
                     attributes: ['username']
                 }
             },
@@ -84,7 +91,10 @@ router.get('/post/:id', (req, res) => {
                 model: Users,
                 attributes: ['username']
             }
-        ]
+        ], 
+		order: [
+			[ 'created_at', 'DESC']
+		]
     }).then(dbPostData => {
 		if (!dbPostData) {
 		  res.status(404).json({ message: 'No post found with this id' });
@@ -95,7 +105,7 @@ router.get('/post/:id', (req, res) => {
 		const post = dbPostData.get({ plain: true });
   
 		// pass data to template
-		res.render('single-post', { post });
+		res.render('single-post', { post, loggedIn: req.session.loggedIn, pageTitle: 'Single Post' });
 	  })
 	  .catch(err => {
 		console.log(err);

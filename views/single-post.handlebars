@@ -23,47 +23,26 @@
 
 
 
-                         <div class="comments" style='border: solid 1px red'>
-                            {{#each post.comments}}
-                            <section class="comment" >
+                         <div class="" style='border: solid 1px #333'>
+                            {{#each posts.comments}}
+                            <section class="" >
                                 <div class="meta">
-                                    {{post.User.username}} on {{created_at}}
+                                    {{User.username}} on {{created_at}}
                                 </div>
                                 <div class="is-size-7 has-text-light ">
-                                    {{post.comments_text}}
+                                    {{comments_text}}
                                 </div>
                             </section>
-                            {{/each}}
+                            {{/each}} 
+
                         </div>
 
                         
-
-
-                        {{!-- comments form --}}
-                        <h1 class="title mt-2">Add a Comment</h1>
-                        <div class="field">
-                            <label class="label has-text-light">Message</label>
-                            <div class="control">
-                                <textarea class="textarea" placeholder="Textarea"></textarea>
-                            </div>
-                        </div>
-
-                        <div class="field is-grouped">
-                            <div class="control">
-                                <button class="button is-success">Submit</button>
-                            </div>
-                            <div class="control">
-                                <button class="button is-link is-light">Cancel</button>
-                            </div>
-                        </div>
-
-
-
-
-                       
-
-
-
+                        {{!-- comments partials form --}}
+                        {{#if loggedIn}} 
+                       {{>comments}}
+                        {{/if}}
+        
                     </div>
                 </article>
             </div>
@@ -73,3 +52,7 @@
     </div>
 
 </section>
+ {{#if loggedIn}} 
+<script src="/javascript/comment.js"></script>
+
+{{/if}}
