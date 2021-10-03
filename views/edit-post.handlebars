@@ -1,0 +1,31 @@
+
+
+<div class="columns is-mobile is-centered">
+  <div class="column is-5-tablet is-4-desktop is-half-widescreen is-centered ">
+    <a href="/dashboard">Back to dashboard</a>
+      <h2 class="title has-text-black is-size-4 mt-5 ">Edit or delete post</h2>
+    <form id="edit-post" class="box ">
+      <div class="field">
+        
+        
+        <input class="input" type="text" id="{{post.id}}"   name="title" value="{{post.title}}">
+        
+        <textarea class="textarea" id="{{post.id}}" >{{post.post_text}}</textarea>
+
+      </div>
+
+      <div class="field">
+        <button class="button is-success" id="save" type="submit">
+          Save Post
+        </button>
+        <button class="button is-danger" id="delete-post" type="button">
+          Delete Post
+        </button>
+      </div> 
+    </form>
+
+
+  </div>
+</div>
+<script src="/javascript/edit-post.js"></script>
+<script src="/javascript/delete-post.js"></script>  

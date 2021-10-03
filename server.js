@@ -2,6 +2,7 @@ const path = require('path');
 const express = require('express');
 const session = require('express-session');
 const exphbs = require('express-handlebars');
+const helpers = require('./utils/helpers');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -19,6 +20,21 @@ const sess = {
   })
 };
 
+// const sess = {
+//   secret: 'xxx', 
+//   name: 'sessionId',
+//   resave: true,
+//   saveUninitialized: true,
+//   rolling: true, // <-- Set `rolling` to `true`
+//   cookie: {
+//     httpOnly: true,
+//     maxAge:60*1000
+//   }
+// };
+
+
+
+
  // allows use of session. in handlebars such as #if session.loggedIn
  app.use(session(sess));
  app.use(function (req, res, next) {
@@ -28,7 +44,7 @@ const sess = {
  });
  
 
-const hbs = exphbs.create({});
+const hbs = exphbs.create({ helpers });
 
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');

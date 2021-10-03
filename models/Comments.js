@@ -13,11 +13,11 @@ Comments.init(
             autoIncrement: true
         },
         comments_text: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: false
         },
         users_id: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.INTEGER, 
             references: {
                 model: 'Users',
                 key:'id'
@@ -39,4 +39,4 @@ Comments.init(
     }
 );
 
-module.exports = Comments;
+module.exports = Comments; 

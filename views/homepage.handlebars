@@ -22,12 +22,13 @@
                              
                                 <p class="post-excerpt">{{post_text}}</p>
                                 <br>
-                                <div class="meta">
-                                    By <a href="/api/users/{{id}}" >{{User.username}} </a>
-                                     on
-                                    {{created_at}}
-                                    |
-                                    <a href="/api/comments/{{id}}">{{comments.length}} comment(s)</a>
+                                <div class="meta mb-2">
+                                    By <a href="/api/posts/{{id}}">{{User.username}}</a>
+                                         {{#if session.loggedIn}}
+                                    <a  href="/dashboard/edit/{{id}}">Edit Post</a>
+                                    {{/if}}
+                                     on {{ format_date created_at}}
+                                    <br/> <a href="/api/posts/{{id}}">{{comments.length}} comment(s)</a>
                                 </div>
                                 <a href="/api/posts/{{id}}" class="button is-primary">Read More</a>
                             </div>

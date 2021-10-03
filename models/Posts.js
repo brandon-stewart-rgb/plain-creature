@@ -18,11 +18,11 @@ Posts.init(
 		},
 
 		post_text: {
-			type: DataTypes.STRING(1000),
+			type: DataTypes.TEXT,
 			allowNull: false,
 		},
 		
-		created_at: {
+		created_at: { 
 				type: 'TIMESTAMP',
 				defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
 				allowNull: false

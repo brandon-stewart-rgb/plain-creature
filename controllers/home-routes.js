@@ -1,6 +1,4 @@
 const router = require('express').Router();
-const session = require('express-session');
-const sequelize = require('../config/connection');
 const { Posts,  Comments, Users } = require('../models');
 
 router.get('/', (req, res) => {
@@ -14,18 +12,16 @@ router.get('/', (req, res) => {
 				attributes: ['id', 'comments_text', 'posts_id', 'users_id'],
 				include: {
 					model: Users,
-					attributes: ['username'],
+					attributes: ['username'], 
 				},
 			},
 			{
 				model: Users,
 				attributes: ['username'],
 			},
-		],
-		
+		],		
         order: [
             ['created_at', 'DESC']
-
         ]
 	})
 		.then((dbPostsData) => {
@@ -37,42 +33,18 @@ router.get('/', (req, res) => {
 			res.status(500).json(err);
 		});
 });
-
+// login page
 router.get('/login', (req, res) => {
 	if (req.session.loggedIn) {
 	  res.redirect('/dashboard');
 	  return;
 	}
   // render login page and make page title dynamic
-	res.render('login', { pageTitle: 'Login' });
+	res.render('login', { pageTitle: 'Login' }); 
   });
 
-
-
-// // dashboard
-// router.get('/dashboard',  (req, res) => {
-// 	if(req.session.loggedIn) {
-// 		Posts.findAll({
-// 			attributes: ['title'],
-// 			where: {
-// 				users_id: req.body.users_id
-// 			}
-// 		});
-	 
-// 	  res.render('dashboard', { pageTitle: 'Dashboard'});
-// 	  return;
-
-// 	} else {
-// 		res.redirect('/');
-// 		return;
-// 	  }
-	
-// });
-
 // single post
-router.get('/api/posts/:id', (req, res) => {
-	
-
+router.get('/api/posts/:id', (req, res) => {	
 	Posts.findOne({
         where: {
             id: req.params.id
@@ -100,10 +72,8 @@ router.get('/api/posts/:id', (req, res) => {
 		  res.status(404).json({ message: 'No post found with this id' });
 		  return;
 		}
-  
 		// serialize the data
 		const post = dbPostData.get({ plain: true });
-  
 		// pass data to template
 		res.render('single-post', { post, loggedIn: req.session.loggedIn, pageTitle: 'Single Post' });
 	  })
@@ -113,14 +83,11 @@ router.get('/api/posts/:id', (req, res) => {
 	  });
   });
 
-
-
 //signup
 router.get('/signup', (req, res) => {
 	
   // render login page and make title dynamic
 	res.render('signup', { pageTitle: 'Signup' });
 });
-
 
 module.exports = router;

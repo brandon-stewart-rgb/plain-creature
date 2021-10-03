@@ -30,6 +30,7 @@
     "express-session": "^1.17.2",
     "lodash": "^4.17.21",
     "mysql2": "^2.3.0",
+    "nodemon": "^2.0.13",
     "sequelize": "^6.6.5"
   }
 }

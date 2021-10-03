@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const sequelize = require('../../config/connection');
 const { Posts, Users, Comments } = require('../../models');
-const chalk = require('chalk');
+const withAuth = require('../../utils/auth');
+
 
 router.get('/', (req, res)=> {
     Posts.findAll({
@@ -85,10 +86,12 @@ router.post('/', (req, res) => {
    
 });
 
-router.put('/:id', (req, res)=> {
+router.put('/:id',  (req, res)=> {
     Posts.update(
         {
-            title: req.body.title
+            title: req.body.title,
+            post_text: req.body.post_text
+            
         },
         {
             where: {
@@ -108,6 +111,7 @@ router.put('/:id', (req, res)=> {
 });
 
 router.delete('/:id', (req, res)=> {
+    console.log('id', req.params.id);
     Posts.destroy({
         where: {
             id: req.params.id

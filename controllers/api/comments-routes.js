@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const sequelize = require('../../config/connection');
 const { Comments, Users } = require('../../models');
+const withAuth = require('../../utils/auth');
 
 router.get('/', (req, res) => {
 	Comments.findAll()
@@ -39,19 +40,17 @@ router.get('/:id', (req, res) => {
 		});
 });
 
-router.post('/', (req, res) => {
-	if (req.session) {
-		Comments.create({
-			comments_text: req.body.comments_text,
-			users_id: req.session.users_id,
-			posts_id: req.body.posts_id,
-		})
-			.then((dbCommentsData) => res.json(dbCommentsData))
-			.catch((err) => {
-				console.log(err);
-				res.status(400).json(err);
-			});
-	}
+router.post('/',  (req, res) => {
+	Comments.create({
+		comments_text: req.body.comments_text,
+		users_id: req.session.users_id,
+		posts_id: req.body.posts_id,
+	})
+		.then((dbCommentsData) => res.json(dbCommentsData))
+		.catch((err) => {
+			console.log(err);
+			res.status(400).json(err);
+		});
 });
 
 router.delete('/:id', (req, res) => {

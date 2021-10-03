@@ -85,3 +85,14 @@ hr {
 .blog-posts .post .featured .featured-image img {
   height: 380px;
 }
+
+@media screen and (max-width: 1023px) {
+.navbar-menu {
+    background-color: #000;
+    box-shadow: 0 8px 16px rgb(10 10 10 / 10%);
+    padding: .5rem 0;
+}
+.navbar-item.is-active {
+  background-color: #000 !important;
+}
+}

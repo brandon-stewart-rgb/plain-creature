@@ -12,47 +12,51 @@
                     <div class="column is-12 featured-content ">
 
                         <h1 class="title post-title">{{post.title}}</h1>
-                        <p class="post-excerpt">{{post.post_text}}</p>
-                        <br>
                         <div class="meta">
                             By <a href="/api/users/{{id}}"> {{post.User.username}}</a> on
-                            {{post.created_at}}
+                            {{format_date post.created_at}}
                             |
                             <a href="/api/comments/{{id}}">{{comments.length}} comment(s)</a>
+                            <br/>
+                               {{#if session.loggedIn}}
+                                    <a  href="/dashboard/edit/{{post.id}}">Edit Post</a>
+                                {{/if}}
                         </div>
+                        <p class="post-excerpt">{{post.post_text}}</p>
+                        <br>
 
 
-
-                         <div class="" style='border: solid 1px #333'>
+                        {{#if posts}}
+                        <div>
+                            <h2 class="title is-size-4">Comments</h2>
                             {{#each posts.comments}}
-                            <section class="" >
-                                <div class="meta">
-                                    {{User.username}} on {{created_at}}
+                            <section class="box has-background-dark">
+                                <div class="meta is-size-7 has-text-success-light">
+                                    <span class="has-text-grey">{{User.username}}</span> on <span
+                                        class="has-text-grey">{{ format_date created_at}}</span>
                                 </div>
-                                <div class="is-size-7 has-text-light ">
-                                    {{comments_text}}
+                                <div class="is-size-6 has-text-success-light">
+                                    {{posts.comments_text}}
                                 </div>
                             </section>
-                            {{/each}} 
-
+                            {{/each}}
                         </div>
-
-                        
-                        {{!-- comments partials form --}}
-                        {{#if loggedIn}} 
-                       {{>comments}}
                         {{/if}}
-        
+
+
+                        {{!-- comments partials form --}}
+                        {{#if loggedIn}}
+                        {{>comments}}
+                        {{/if}}
+
                     </div>
                 </article>
             </div>
 
-
         </div>
     </div>
-
 </section>
- {{#if loggedIn}} 
-<script src="/javascript/comment.js"></script>
 
+{{#if loggedIn}}
+<script src="/javascript/comment.js"></script>
 {{/if}}
