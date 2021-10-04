@@ -3,6 +3,7 @@ const express = require('express');
 const session = require('express-session');
 const exphbs = require('express-handlebars');
 const helpers = require('./utils/helpers');
+require('dotenv').config()
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -27,7 +28,7 @@ const sess = {
   saveUninitialized: true,
   rolling: true, // <-- Set `rolling` to `true`
   cookie: {
-    httpOnly: false,
+   
     maxAge: 60 * 60 * 1000
   }
 };
