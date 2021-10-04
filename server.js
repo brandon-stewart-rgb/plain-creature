@@ -10,27 +10,27 @@ const PORT = process.env.PORT || 3001;
 const sequelize = require('./config/connection');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
-const sess = {
-  secret: 'Super secret secret',
-  cookie: {},
-  resave: false,
-  saveUninitialized: true,
-  store: new SequelizeStore({
-    db: sequelize
-  })
-};
-
 // const sess = {
-//   secret: 'xxx', 
-//   name: 'sessionId',
-//   resave: true,
+//   secret: 'Super secret secret',
+//   cookie: {},
+//   resave: false,
 //   saveUninitialized: true,
-//   rolling: true, // <-- Set `rolling` to `true`
-//   cookie: {
-//     httpOnly: true,
-//     maxAge:60*1000
-//   }
+//   store: new SequelizeStore({
+//     db: sequelize
+//   })
 // };
+
+const sess = {
+  secret: 'xxx', 
+  name: 'sessionId',
+  resave: true,
+  saveUninitialized: true,
+  rolling: true, // <-- Set `rolling` to `true`
+  cookie: {
+    httpOnly: true,
+    maxAge:60*1000
+  }
+};
 
 
 

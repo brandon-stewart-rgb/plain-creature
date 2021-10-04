@@ -1,14 +1,13 @@
 const Posts = require('./Posts');
-const Users = require('./Users');
 const Comments = require('./Comments');
-
-Users.hasMany(Posts, {
-    foreignKey: 'users_id'
-});
+const Users = require('./Users');
 
 Posts.belongsTo(Users, {
     foreignKey: 'users_id',
     onDelete: 'SET NULL'
+});
+Users.hasMany(Posts, {
+    foreignKey: 'users_id'
 });
 
 Comments.belongsTo(Users, {

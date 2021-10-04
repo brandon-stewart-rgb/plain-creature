@@ -39,7 +39,7 @@ router.get('/',  (req, res) => {
 });
 
 // get single post by id and render edit page
-router.get('/edit/:id', withAuth, (req,res) => {
+router.get('/edit/:id',  (req,res) => {
 	Posts.findByPk( req.params.id, {
 	
 		attributes: ['id', 'title', 'post_text', 'created_at'],

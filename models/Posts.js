@@ -31,7 +31,7 @@ Posts.init(
 		users_id: {
 			type: DataTypes.INTEGER,
 			references: {
-			  model: 'Users',
+			  model: 'users',
 			  key: 'id'
 			}
 		  }
@@ -41,7 +41,7 @@ Posts.init(
 		timestamps: true,
 		freezeTableName: true,
 		underscored: true,
-		modelName: 'Posts',
+		modelName: 'posts',
 	}
 );
 
