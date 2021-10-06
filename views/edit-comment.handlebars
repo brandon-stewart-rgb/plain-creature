@@ -1,0 +1,28 @@
+
+
+<div class="columns is-mobile is-centered">
+  <div class="column is-5-tablet is-4-desktop is-half-widescreen is-centered ">
+    <a href="/">Back to home</a>
+      <h2 class="title has-text-black is-size-4 mt-5 ">Edit or delete comment</h2>
+    <form id="edit-post" class="box ">
+      <div class="field">
+               
+        <textarea class="textarea" id="{{comment.id}}" >{{comment.comments_text}}</textarea>
+
+      </div>
+
+      <div class="field">
+        <button class="button is-success" id="save" type="submit">
+          Save Comment
+        </button>
+        <button class="button is-danger" id="delete-comment" type="button">
+          Delete Comment
+        </button>
+      </div> 
+    </form>
+
+
+  </div>
+</div>
+<script src="/javascript/edit-comment.js"></script>
+<script src="/javascript/delete-comment.js"></script>  

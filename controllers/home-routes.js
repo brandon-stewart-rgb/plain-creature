@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { Posts,  Comments, Users } = require('../models');
+const withAuth = require('../utils/auth');
 
 router.get('/', (req, res) => {
 	//console log all the session variables
@@ -84,10 +85,42 @@ router.get('/api/posts/:id', (req, res) => {
   });
 
 //signup
-router.get('/signup', (req, res) => {
-	
+router.get('/signup', (req, res) => {	
   // render login page and make title dynamic
 	res.render('signup', { pageTitle: 'Signup' });
 });
+
+// get single comment
+router.get('/edit/comment/:id',  (req,res) => {
+	Comments.findByPk( req.params.id, {	
+		attributes: ['id', 'comments_text', 'posts_id', 'users_id', 'created_at'],
+		include: [
+			{
+			model: Posts,
+			attributes: ['id', 'title', 'post_text', 'created_at'],
+			include: {
+				model: Users,
+				attributes: ['username']
+			}
+		},
+		{
+			model: Users,
+			attributes: ['username']
+		}		
+	]
+	})
+	.then(dbCommentData => {
+		if(dbCommentData) {
+			// serialize the post data!!
+			const comment = dbCommentData.get({ plain: true });
+			res.render('edit-comment', { comment, loggedIn: true, pageTitle: 'Edit Comment' });
+		} else {
+			res.status(404).end();
+		}		
+	})
+	.catch(err => {
+		res.status(500).json(err);
+	})
+})
 
 module.exports = router;

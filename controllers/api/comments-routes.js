@@ -46,29 +46,36 @@ router.post('/',   (req, res) => {
 	}
 });
 
-router.delete('/:id', withAuth, (req, res) => {
-	Comments.destroy({
-		where: {
-			id: req.params.id,
-		},
-	})
-		.then((dbCommentsData) => {
-			if (!dbCommentsData) {
-				res.status(404).json({ message: 'No comment found with that particular id' });
-				return;
-			}
-			res.json(dbCommentsData);
-		})
-		.catch((err) => {
-			console.log(err);
-			res.status(500).json(err);
-		});
-});
+// router.delete('/:id',  (req, res) => {
+// 	console.log( req.params.id,
+// 		 req.params.posts_id,
+// 		req.params.users_id
+// 	)
+// 	Comments.destroy({
+// 		where: {
+// 			id: req.params.id,
+// 			posts_id: req.params.posts_id,
+// 			users_id: req.params.users_id
+		
+// 		},
+// 	})
+// 		.then((dbCommentsData) => {
+// 			if (!dbCommentsData) {
+// 				res.status(404).json({ message: 'No comment found with that particular id' });
+// 				return;
+// 			}
+// 			res.json(dbCommentsData);
+// 		})
+// 		.catch((err) => {
+// 			console.log(err);
+// 			res.status(500).json(err);
+// 		});
+// });
 
 //route to update a comment
-router.put('/:id', withAuth, (req, res) => {
+router.put('/:id',  (req, res) => {
     Comments.update({
-        comment_text: req.body.comment_text
+        comments_text: req.body.comments_text
       },
       {
         where: {
@@ -87,7 +94,7 @@ router.put('/:id', withAuth, (req, res) => {
 });
 
 //route to delete a comment
-router.delete('/:id', withAuth, (req, res) => {
+router.delete('/:id',  (req, res) => {
     Comments.destroy({
         where: {
             id: req.params.id 
@@ -103,5 +110,7 @@ router.delete('/:id', withAuth, (req, res) => {
         res.status(500).json(err);
     });
 });
+
+
 
 module.exports = router;

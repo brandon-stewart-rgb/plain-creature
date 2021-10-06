@@ -23,10 +23,13 @@
 
 
                         {{#if post.comments}}
-                        <div>
+                       <div id="parent" >
+                    
                             <h2 class="title is-size-4">Comments</h2>
                             {{#each post.comments}}
-                            <section class="box has-background-dark">
+                           {{#if ../loggedIn}} <a  href='/edit/comment/{{id}}'>Edit Comment</a> {{/if}}
+                            <section  class="box notification has-background-dark">
+                               
                                 <div class="meta is-size-7 has-text-success-light">
                                     <span class="has-text-grey">{{user.username}}</span> on 
                                     <span class="has-text-grey">{{ format_date created_at}}</span>
@@ -36,11 +39,10 @@
                                 </div>
                             </section>
                             {{/each}}
-                        </div>
+                       </div>
                         {{/if}}
 
-
-                        {{!-- comments partials form --}}
+                        {{!-- comment  form --}}
                         {{#if loggedIn}}
                         {{> comments}}
                         {{/if}}
@@ -55,4 +57,5 @@
 
 {{#if loggedIn}}
 <script src="/javascript/comment.js"></script>
+<script src="/javascript/delete-comment.js"></script>
 {{/if}}
