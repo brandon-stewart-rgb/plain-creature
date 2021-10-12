@@ -11,9 +11,14 @@ const PORT = process.env.PORT || 3001;
 const sequelize = require('./config/connection');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
+// creating 24 hours from milliseconds
+const twoHours = 1000 * 60 * 60 * 2;
 const sess = {
+  // key: 'users_id',
   secret: 'Super secret secret',
-  cookie: {},
+  cookie: {
+    maxAge: twoHours
+  },
   resave: false,
   saveUninitialized: true,
   store: new SequelizeStore({
@@ -21,17 +26,7 @@ const sess = {
   })
 };
 
-// const sess = {
-//   secret: 'xxx', 
-//   name: 'sessionId',
-//   resave: true,
-//   saveUninitialized: true,
-//   rolling: true, // <-- Set `rolling` to `true`
-//   cookie: {
-   
-//     maxAge: 60 * 60 * 1000
-//   }
-// };
+
 
 
 
@@ -61,3 +56,14 @@ app.disable('etag');
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => console.log(`Now listening on ${PORT}`));
 });
+
+
+
+
+
+
+
+
+
+
+

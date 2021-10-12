@@ -1,6 +1,7 @@
 const router = require('express').Router();
-const { Comments } = require('../../models');
+const { Comments, Users, Posts } = require('../../models');
 const withAuth = require('../../utils/auth');
+
 
 router.get('/', (req, res) => {
 	Comments.findAll({})
@@ -11,13 +12,31 @@ router.get('/', (req, res) => {
 		});
 });
 
-router.get('/:id', (req, res) => {
+
+
+
+router.get('/:id', withAuth,   (req, res) => {
 	Comments.findOne({
 		where: {
-			id: req.params.id,
-		}
-		
-	})
+            id: req.params.id,
+			users_id: req.params.users_id
+        },
+        attributes: [ 'id', 'comments_text', 'posts_id', 'users_id' ],
+        include: [
+            {
+                model: Posts,
+				attributes: [ 'id', 'title', 'post_text', 'created_at'],
+                include: {
+                    model: Users,
+                    attributes: ['username']
+                }
+            },
+            {
+                model: Users,
+                attributes: ['username']
+            }
+        ]
+    })
 		.then((dbCommentsData) => {
 			if (!dbCommentsData) {
 				res.status(404).json({ message: 'No comments found with this specific id' });
@@ -31,8 +50,8 @@ router.get('/:id', (req, res) => {
 		});
 });
 
-router.post('/',   (req, res) => {
-	if(req.session) {
+router.post('/', withAuth,  (req, res) => {
+	
 	Comments.create({
 		comments_text: req.body.comments_text,
 		users_id: req.session.users_id,
@@ -43,45 +62,24 @@ router.post('/',   (req, res) => {
 			console.log(err);
 			res.status(400).json(err);
 		})
-	}
+	
 });
 
-// router.delete('/:id',  (req, res) => {
-// 	console.log( req.params.id,
-// 		 req.params.posts_id,
-// 		req.params.users_id
-// 	)
-// 	Comments.destroy({
-// 		where: {
-// 			id: req.params.id,
-// 			posts_id: req.params.posts_id,
-// 			users_id: req.params.users_id
-		
-// 		},
-// 	})
-// 		.then((dbCommentsData) => {
-// 			if (!dbCommentsData) {
-// 				res.status(404).json({ message: 'No comment found with that particular id' });
-// 				return;
-// 			}
-// 			res.json(dbCommentsData);
-// 		})
-// 		.catch((err) => {
-// 			console.log(err);
-// 			res.status(500).json(err);
-// 		});
-// });
 
 //route to update a comment
-router.put('/:id',  (req, res) => {
+router.put('/:id', withAuth,  (req, res) => {
+	
     Comments.update({
-        comments_text: req.body.comments_text
+        comments_text: req.body.comments_text,
+		users_id: req.body.users_id
       },
       {
         where: {
-          id: req.params.id
+          id: req.params.id,	  
         }
-    }).then(dbCommentData => {
+    }) 
+	
+	.then(dbCommentData => {
         if (!dbCommentData) {
             res.status(404).json({ message: 'No comment found with this id' });
             return;
@@ -91,10 +89,11 @@ router.put('/:id',  (req, res) => {
         console.log(err);
         res.status(500).json(err);
     });
+
 });
 
 //route to delete a comment
-router.delete('/:id',  (req, res) => {
+router.delete('/:id',  withAuth, (req, res) => {
     Comments.destroy({
         where: {
             id: req.params.id 

@@ -11,6 +11,12 @@
             <h1 class="title post-title">{{title}}</h1>
             <p class="post-excerpt">{{post_text}}</p>
             <br>
+              <div class="meta mb-2">
+                                   
+                                    
+                                     {{ format_date created_at}}
+                                    <br/> <a href="/api/posts/{{id}}">{{comments.length}} comment(s)</a>
+                                </div>
             <a href="/api/posts/{{id}}" class="button is-primary">Read More</a>
             {{/if}}
             {{/each}}

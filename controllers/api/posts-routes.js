@@ -4,7 +4,7 @@ const sequelize = require('../../config/connection');
 const withAuth = require('../../utils/auth');
 
 
-router.get('/', (req, res)=> {
+router.get('/', withAuth, (req, res)=> {
     Posts.findAll({
         attributes: [ 'id', 'title', 'post_text', 'created_at'],
         include: [
@@ -32,7 +32,7 @@ router.get('/', (req, res)=> {
     }); 
 });
 
-router.get('/:id', (req, res)=> {
+router.get('/:id',withAuth, (req, res)=> {
     Posts.findOne({
         where: {
             id: req.params.id
@@ -70,7 +70,7 @@ router.get('/:id', (req, res)=> {
 });
 
 // create post
-router.post('/', (req, res) => {
+router.post('/',withAuth, (req, res) => {
     Posts.create({
         title: req.body.title,
         post_text: req.body.post_text,
@@ -86,7 +86,7 @@ router.post('/', (req, res) => {
    
 });
 
-router.put('/:id',  (req, res)=> {
+router.put('/:id', withAuth, (req, res)=> {
     Posts.update(
         {
             title: req.body.title,
@@ -110,7 +110,7 @@ router.put('/:id',  (req, res)=> {
     });
 });
 
-router.delete('/:id', (req, res)=> {
+router.delete('/:id',withAuth, (req, res)=> {
     console.log('id', req.params.id);
     Posts.destroy({
         where: {

@@ -9,16 +9,16 @@
                     <div class="column is-12 featured-content ">
                         <h1 class="title post-title">{{post.title}}</h1>
                         <div class="meta">
-                            By <a href="/api/posts/{{post.id}}"> {{post.User.username}}</a> on
+                            By <a href="/api/posts/{{post.id}}"> {{post.user.username}}</a> on
                             {{format_date post.created_at}}
                             |
                             <a href="/api/posts/{{post.id}}">{{post.comments.length}} comment(s)</a>
                             <br/>
                                {{#if session.loggedIn}}
-                                    <a  href="/dashboard/edit/{{post.id}}">Edit Post</a>
+                                    <a  href="/dashboard/">Edit Post</a>
                                 {{/if}}
                         </div>
-                        <p class="post-excerpt">{{post.post_text}}</p>
+                        <p class="">{{post.post_text}}</p>
                         <br>
 
 
@@ -27,8 +27,8 @@
                     
                             <h2 class="title is-size-4">Comments</h2>
                             {{#each post.comments}}
-                           {{#if ../loggedIn}} <a  href='/edit/comment/{{id}}'>Edit Comment</a> {{/if}}
-                            <section  class="box notification has-background-dark">
+                           {{#if ../session.users_id}} <a id="{{users_id}}" href='/edit/comment/{{id}}'>Edit Comment</a> {{/if}}
+                            <section  class="box notification has-background-dark" >
                                
                                 <div class="meta is-size-7 has-text-success-light">
                                     <span class="has-text-grey">{{user.username}}</span> on 

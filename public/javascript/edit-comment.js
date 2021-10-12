@@ -11,7 +11,8 @@ async function editCommentHandler(e) {
 
     const response = await fetch(`/api/comments/${id}`, {
         method: 'PUT',
-        body: JSON.stringify({        
+        body: JSON.stringify({  
+        
             comments_text           
         }),
         headers: {
