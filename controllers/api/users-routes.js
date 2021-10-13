@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const { Users, Posts, Comments } = require('../../models');
+const withAuth = require('../../utils/auth');
 
-router.get('/', (req, res)=> {
+router.get('/', withAuth, (req, res)=> {
     Users.findAll({
         attributes: { exclude: ['password'] }
     })
@@ -12,7 +13,7 @@ router.get('/', (req, res)=> {
     });
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', withAuth, (req, res) => {
   if(!req.session.views){
     req.session.views =1;
     console.log("This is your first visit to this site");
@@ -138,7 +139,6 @@ router.post('/login', (req, res) => {
    });
  });
  
-
 router.delete('/:id', (req, res) => {
     User.destroy({
       where: {
@@ -157,7 +157,5 @@ router.delete('/:id', (req, res) => {
         res.status(500).json(err);
       });
   });
-
- 
 
 module.exports = router;

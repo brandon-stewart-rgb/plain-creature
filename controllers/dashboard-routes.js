@@ -5,9 +5,8 @@ const withAuth = require('../utils/auth');
 const chalk = require('chalk');
 
 // dashboard
-router.get('/',  (req, res) => {	
-		Posts.findAll({
-		
+router.get('/', withAuth, (req, res) => {	
+		Posts.findAll({	
 			where: {
 				users_id: req.session.users_id,	
 			},
@@ -24,11 +23,8 @@ router.get('/',  (req, res) => {
 		.catch(err => {
 			console.log(err);
 			res.status(500).json(err);
-		});	 
-		
-		
+		});	 		
 });
-
 
 // get single post by id and render edit page
 router.get('/edit/:id',  (req,res) => {
@@ -46,10 +42,8 @@ router.get('/edit/:id',  (req,res) => {
 		{
 			model: Users,
 			attributes: ['username']
-		}
-		
+		}		
 	]
-
 	})
 	.then(dbPostData => {
 		if(dbPostData) {
@@ -64,9 +58,5 @@ router.get('/edit/:id',  (req,res) => {
 		res.status(500).json(err);
 	})
 });
-
-
-
-
 
 module.exports = router;

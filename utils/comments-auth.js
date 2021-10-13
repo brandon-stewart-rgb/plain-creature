@@ -8,15 +8,10 @@ const canEditComment = (req, res, next) => {
     })
     .then((data) => {   
         if (req.session.users_id != data.users_id) {      
-            console.log(req.session.users_id);
-            console.log(data.users_id);
-            // need to add an error page.
-            res.redirect('/');
-   
+            res.redirect('/error');
          } else {
             next();
          }
     });    
 };
-
 module.exports =  canEditComment;

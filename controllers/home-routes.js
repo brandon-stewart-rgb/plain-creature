@@ -37,6 +37,7 @@ router.get('/', (req, res) => {
 			res.status(500).json(err);
 		});
 });
+
 // login page
 router.get('/login', (req, res) => {
 	if (req.session.loggedIn) {
@@ -137,6 +138,12 @@ router.get('/edit/comment/:id',   canEditComment, (req, res) => {
 		.catch((err) => {
 			res.status(500).json(err);
 		});
+});
+
+// render error page
+router.get('/error', (req, res) => {
+	// render error page and make title dynamic
+	res.render('error', { pageTitle: 'Error' });
 });
 
 module.exports = router;

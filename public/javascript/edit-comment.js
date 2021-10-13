@@ -1,6 +1,5 @@
 async function editCommentHandler(e) {
     e.preventDefault();
-
     const comments_text = document.querySelector('textarea').value.trim();
    
     const id = window.location.toString().split('/')[
@@ -20,9 +19,20 @@ async function editCommentHandler(e) {
         }
     });
     if(response.ok) {
-        document.location.replace('/');
+        // document.location.replace('/');
+        GoBackWithRefresh();
     } else { 
         alert(response.statusText);
+    }
+}
+// send user back and refresh page load if response.ok above
+function GoBackWithRefresh(event) {
+    if ('referrer' in document) {
+        window.location = document.referrer;
+        /* OR */
+        //location.replace(document.referrer);
+    } else {
+        window.history.back();
     }
 }
 

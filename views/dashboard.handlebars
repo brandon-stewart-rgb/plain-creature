@@ -33,46 +33,6 @@
     </section>
     {{/if}}
 
-
-    {{#if posts.comments}}
-    <section>
-      <h2 class="title has-text-black is-size-4 ">Your Latest Comments</h2>
-      <ul>
-        {{#each posts.comments}}
-        <li class="is-size-6   mb-1  ">
-          <a class=" is-block button is-success " href="" class="edit-link">{{comments_text}} placer text <span class=" ml-5 tag is-primary is-light">Edit Post</span></a>
-        </li>
-        {{/each}} 
-      </ul>
-    </section>
-    {{/if}}
-
-   
-   
-
-
-      {{#if post.comments}}
-                       <div id="parent" >
-                    
-                            <h2 class="title is-size-4">Comments</h2>
-                            {{#each post.comments}}
-                           {{#if ../session.users_id}} <a id="{{users_id}}" href='/edit/comment/{{id}}'>Edit Comment</a> {{/if}}
-                            <section  class="box notification has-background-dark" >
-                               
-                                <div class="meta is-size-7 has-text-success-light">
-                                    <span class="has-text-grey">{{user.username}}</span> on 
-                                    <span class="has-text-grey">{{ format_date created_at}}</span>
-                                </div>
-                                <div class="is-size-6 has-text-success-light">
-                                    {{comments_text}}
-                                </div>
-                            </section>
-                            {{/each}}
-                       </div>
-                        {{/if}}
-
-
-
   </div>
 </div>
 <script src="/javascript/post.js"></script>

@@ -22,7 +22,4 @@ async function loginFormHandler(event) {
 	}
 }
 
-
-
-
 document.getElementById('login-form').addEventListener('submit', loginFormHandler);
